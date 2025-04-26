@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./calculator.css">
 </head>
 <body>
+    
     <div id="container">
         <form>
             <section class="display">
@@ -47,9 +47,33 @@
                 <input class="equal operators" type="button" value="=" onclick="display.value = eval(display.value) ">
             </section>
         </form>
-            
-        
-
     </div>
+    <script>
+        const display = document.querySelector('input[name="display"]');
+    
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+    
+            if (!isNaN(key)) {
+                display.value += key; // numbers
+            } else if (['+', '-', '*', '/'].includes(key)) {
+                display.value += key; // operators
+            } else if (key === '.') {
+                display.value += '.'; // decimal
+            } else if (key === 'Enter' || key === '=') {
+                try {
+                    display.value = eval(display.value); // evaluate
+                } catch {
+                    display.value = "Error";
+                }
+            } else if (key === 'Backspace') {
+                display.value = display.value.slice(0, -1); // delete last
+            } else if (key === 'Escape') {
+                display.value = ''; // clear display
+            }
+        });
+    </script>
+    
+    
 </body>
 </html>
